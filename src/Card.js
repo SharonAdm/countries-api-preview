@@ -9,8 +9,8 @@ export default function MediaCard({ data, showDetails }) {
     <Card sx={{ maxWidth: 275 }} onClick={showDetails}>
       <CardMedia sx={{ height: 140 }} image={data.flags.png} title={data.flags.alt} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {data.name.official}
+        <Typography gutterBottom variant="h6" component="div">
+          {data.name.common}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           population: {data.population}
