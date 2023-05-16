@@ -65,9 +65,8 @@ function App() {
     event.target.value ? getCountry(event.target.value) : getAllCountries();
   };
 
-  const showDetails = () => {
-    console.log("ho");
-    navigate("/details");
+  const showDetails = (country) => {
+    navigate("/details", { state: country });
   };
   return (
     <div>
@@ -108,7 +107,7 @@ function App() {
       <div className="grid gap-8 grid-cols-4 ml-4 mr-0">
         {countries &&
           countries.map((country, index) => {
-            return <MediaCard data={country} showDetails={showDetails} key={index} />;
+            return <MediaCard data={country} showDetails={() => showDetails(country)} key={index} />;
           })}
       </div>
     </div>
