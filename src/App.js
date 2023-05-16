@@ -9,9 +9,21 @@ function App() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [countries, setCountries] = useState("");
 
-  const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
+  const regions = [
+    { name: "Africa", value: "africa" },
+    { name: "America", value: "america" },
+    { name: "Asia", value: "asia" },
+    { name: "Europe", value: "europe" },
+    { name: "Oceania", value: "oceania" },
+  ];
 
-  useEffect(() => {
+  const getRegionCountriesList = (region) => {
+    axios.get(`https://restcountries.com/v3.1/region/${region}`).then((response) => {
+      setCountries(response.data);
+    });
+  };
+
+  const getAllCountries = () => {
     axios
       .get("https://restcountries.com/v3.1/all")
       .then((response) => {
@@ -20,14 +32,23 @@ function App() {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  useEffect(() => {
+    getAllCountries();
   }, []);
 
   const handleChange = (event) => {
     setSelectedRegion(event.target.value);
+    event.target.value === "All" ? getAllCountries() : getRegionCountriesList(event.target.value);
   };
 
   const showDetails = () => {
     console.log("ho");
+  };
+
+  const handleInputChange = (event) => {
+    console.log(event.target.value);
   };
 
   return (
@@ -41,7 +62,7 @@ function App() {
       </header>
 
       <div className="flex justify-between">
-        <div className="my-10 mx-4">
+        <div className="my-10 mx-4" onChange={handleInputChange}>
           <TextField
             fullWidth
             placeholder="search for a country..."
@@ -62,19 +83,22 @@ function App() {
               <MenuItem disabled value="">
                 <em>Filter by Region </em>
               </MenuItem>
+              <MenuItem value="All">
+                <em>All</em>
+              </MenuItem>
               {regions.map((region) => (
-                <MenuItem key={region} value={region}>
-                  {region}
+                <MenuItem key={region.value} value={region.value}>
+                  {region.name}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
         </div>
       </div>
-      <div className="grid gap-4 grid-cols-4 ml-4 mr-0">
+      <div className="grid gap-8 grid-cols-4 ml-4 mr-0">
         {countries &&
-          countries.map((country) => {
-            return <MediaCard data={country} showDetails={showDetails} />;
+          countries.map((country, index) => {
+            return <MediaCard data={country} showDetails={showDetails} key={index} />;
           })}
       </div>
     </div>
