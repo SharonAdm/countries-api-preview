@@ -4,10 +4,13 @@ import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import MediaCard from "./Card";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [countries, setCountries] = useState("");
+
+  const navigate = useNavigate();
 
   const regions = [
     { name: "Africa", value: "africa" },
@@ -65,6 +68,7 @@ function App() {
 
   const showDetails = () => {
     console.log("ho");
+    navigate("/details");
   };
 
   return (
