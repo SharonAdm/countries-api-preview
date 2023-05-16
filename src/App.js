@@ -18,9 +18,25 @@ function App() {
   ];
 
   const getRegionCountriesList = (region) => {
-    axios.get(`https://restcountries.com/v3.1/region/${region}`).then((response) => {
-      setCountries(response.data);
-    });
+    axios
+      .get(`https://restcountries.com/v3.1/region/${region}`)
+      .then((response) => {
+        setCountries(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getCountry = (name) => {
+    axios
+      .get(`https://restcountries.com/v3.1/name/${name}`)
+      .then((response) => {
+        setCountries(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const getAllCountries = () => {
@@ -43,12 +59,12 @@ function App() {
     event.target.value === "All" ? getAllCountries() : getRegionCountriesList(event.target.value);
   };
 
-  const showDetails = () => {
-    console.log("ho");
+  const handleInputChange = (event) => {
+    event.target.value ? getCountry(event.target.value) : getAllCountries();
   };
 
-  const handleInputChange = (event) => {
-    console.log(event.target.value);
+  const showDetails = () => {
+    console.log("ho");
   };
 
   return (
