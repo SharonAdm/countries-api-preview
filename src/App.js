@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FormControl, InputAdornment, MenuItem, Select, TextField } from "@mui/material";
 import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
 
 function App() {
-  const [selectedRegion, setSelectedRegion] = React.useState("");
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [countries, setCountries] = useState("");
 
   const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
 
   const handleChange = (event) => {
     setSelectedRegion(event.target.value);
   };
+
+  console.log(countries);
+
+  useEffect(() => {
+    axios
+      .get("https://restcountries.com/v3.1/all")
+      .then((response) => {
+        setCountries(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div>
