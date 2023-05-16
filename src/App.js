@@ -3,18 +3,13 @@ import { FormControl, InputAdornment, MenuItem, Select, TextField } from "@mui/m
 import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
+import MediaCard from "./Card";
 
 function App() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [countries, setCountries] = useState("");
 
   const regions = ["Africa", "America", "Asia", "Europe", "Oceania"];
-
-  const handleChange = (event) => {
-    setSelectedRegion(event.target.value);
-  };
-
-  console.log(countries);
 
   useEffect(() => {
     axios
@@ -27,9 +22,17 @@ function App() {
       });
   }, []);
 
+  const handleChange = (event) => {
+    setSelectedRegion(event.target.value);
+  };
+
+  const showDetails = () => {
+    console.log("ho");
+  };
+
   return (
     <div>
-      <header className="py-2 px-20 border-b-2 flex justify-between">
+      <header className="py-2 px-4 border-b-2 flex justify-between">
         <div className="text-xl font-bold p-3">Where in the world?</div>
         <button onClick={() => console.log("dark mode")}>
           <NightlightOutlinedIcon />
@@ -38,7 +41,7 @@ function App() {
       </header>
 
       <div className="flex justify-between">
-        <div className="my-10 mx-20">
+        <div className="my-10 mx-4">
           <TextField
             fullWidth
             placeholder="search for a country..."
@@ -53,7 +56,7 @@ function App() {
             }}
           />
         </div>
-        <div className="my-10 mx-20">
+        <div className="my-10 mx-4">
           <FormControl fullWidth>
             <Select value={selectedRegion} onChange={handleChange} displayEmpty inputProps={{ "aria-label": "Without label" }}>
               <MenuItem disabled value="">
@@ -67,6 +70,12 @@ function App() {
             </Select>
           </FormControl>
         </div>
+      </div>
+      <div className="grid gap-4 grid-cols-4 ml-4 mr-0">
+        {countries &&
+          countries.map((country) => {
+            return <MediaCard data={country} showDetails={showDetails} />;
+          })}
       </div>
     </div>
   );
