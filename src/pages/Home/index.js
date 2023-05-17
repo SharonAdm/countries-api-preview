@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FormControl, InputAdornment, MenuItem, Select, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MediaCard from "./components/Card";
-import { useWindowSize } from "../../UseWindowSize";
+import { useWindowSize } from "../../utils/UseWindowSize.utils";
 import { getRequest } from "../../utils/apiCall.util";
 
 function Home() {
