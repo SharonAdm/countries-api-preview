@@ -20,12 +20,14 @@ const theme = createTheme({
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+    const isDarkMode = document.documentElement.classList.toggle("dark");
+    localStorage.setItem("color-theme", isDarkMode ? "dark" : "light");
+    setIsDarkMode(isDarkMode);
   };
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <header className={"py-2 px-4 border-b-2 flex justify-between " + (isDarkMode ? "dark" : "light")}>
+        <header className={"py-2 px-4 border-b-2 flex justify-between "}>
           <div className="text-xl font-bold p-3">Where in the world?</div>
           <button onClick={toggleDarkMode}>
             {isDarkMode ? (

@@ -83,13 +83,21 @@ function Home() {
                 <SearchIcon />
               </InputAdornment>
             ),
-            className: "my-10 mx-4",
+            className: "my-10 mx-4 text-text-light bg-background-light dark:text-text-dark dark:bg-background-dark",
           }}
         />
 
-        <div className="my-10 mx-4">
+        <div>
           <FormControl fullWidth>
-            <Select value={selectedRegion} onChange={handleChange} displayEmpty inputProps={{ "aria-label": "Without label" }}>
+            <Select
+              value={selectedRegion}
+              onChange={handleChange}
+              displayEmpty
+              className="my-10 mx-4 text-text-light bg-background-light dark:text-text-dark dark:bg-background-dark"
+              inputProps={{
+                "aria-label": "Without label",
+              }}
+            >
               <MenuItem disabled value="">
                 <em>Filter by Region </em>
               </MenuItem>

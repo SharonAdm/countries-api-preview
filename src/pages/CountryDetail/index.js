@@ -54,6 +54,7 @@ function Detail() {
         onClick={() => {
           navigate("/");
         }}
+        className=" dark:text-text-dark dark:bg-background-dark"
         startIcon={<ArrowBackIcon />}
       >
         Back
