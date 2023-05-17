@@ -4,10 +4,14 @@ import { FormControl, InputAdornment, MenuItem, Select, TextField } from "@mui/m
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import MediaCard from "./Card";
+import { useWindowSize } from "./UseWindowSize";
 
 function App() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [countries, setCountries] = useState("");
+
+  const { width } = useWindowSize();
+  const isMobile = width <= 375;
 
   const navigate = useNavigate();
 
@@ -70,8 +74,8 @@ function App() {
   };
   return (
     <div>
-      <div className="flex justify-between">
-        <div className="my-10 mx-4" onChange={handleInputChange}>
+      <div className={isMobile ? " " : "flex justify-between"}>
+        <div className="my-10 mx-4 " onChange={handleInputChange}>
           <TextField
             fullWidth
             placeholder="search for a country..."
@@ -104,10 +108,14 @@ function App() {
           </FormControl>
         </div>
       </div>
-      <div className="grid gap-8 grid-cols-4 ml-4 mr-0">
+      <div className={isMobile ? "grid gap-8 grid-cols-1" : "grid gap-8 grid-cols-4 ml-4 mr-0"}>
         {countries &&
           countries.map((country, index) => {
-            return <MediaCard data={country} showDetails={() => showDetails(country)} key={index} />;
+            return (
+              <div className={isMobile ? "justify-self-center min-w-[75%]" : ""} key={index}>
+                <MediaCard data={country} showDetails={() => showDetails(country)} />
+              </div>
+            );
           })}
       </div>
     </div>

@@ -2,10 +2,14 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useWindowSize } from "./UseWindowSize";
 
 function Details() {
   const { state } = useLocation();
   const navigate = useNavigate();
+
+  const { width } = useWindowSize();
+  const isMobile = width <= 375;
 
   function commafy(num) {
     let str = num.toString().split(".");
@@ -36,7 +40,7 @@ function Details() {
 
   function getBorderCountryNames(borderCountriesList) {
     return borderCountriesList.map((countryName, index) => (
-      <div className="border-2 border-solid rounded-md mx-1" key={index}>
+      <div className={"border-2 border-solid rounded-md mx-1 px-1 " + (isMobile ? "text-center m-2" : "")} key={index}>
         {countryName}
       </div>
     ));
@@ -55,13 +59,13 @@ function Details() {
         Back
       </Button>
 
-      <div className="grid grid-cols-2 gap-8 pt-20 mx-4">
+      <div className={"pt-20 mx-4 " + (isMobile ? "grid grid-cols-1 " : "grid grid-cols-2 gap-8")}>
         <div>
           <img src={state.flags.png} alt={state.flags.alt} />
         </div>
         <div>
-          <h6 className="font-bold text-4xl">{state.name.common}</h6>
-          <div className="grid grid-cols-2 gap-4 pt-5">
+          <h6 className={"font-bold text-4xl " + (isMobile ? "pt-10" : "")}>{state.name.common}</h6>
+          <div className={"grid gap-4 pt-5 " + (isMobile ? "grid-cols-1" : "grid-cols-2")}>
             <div>
               <div className="flex">
                 <div className="font-bold">Official Name: </div>
@@ -92,7 +96,10 @@ function Details() {
               </div>
             </div>
           </div>
-          <div className="pt-8 flex">Border Countries: {state.borders ? getBorderCountryNames(state.borders) : "-"}</div>
+          <div className={"pt-8 " + (isMobile ? "" : "flex")}>
+            Border Countries:
+            <div className={isMobile ? "grid grid-cols-3" : "flex"}>{state.borders ? getBorderCountryNames(state.borders) : "-"}</div>
+          </div>
         </div>
       </div>
     </div>
