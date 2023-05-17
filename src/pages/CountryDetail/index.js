@@ -2,9 +2,9 @@ import { Button } from "@mui/material";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useWindowSize } from "./UseWindowSize";
+import { useWindowSize } from "../../UseWindowSize";
 
-function Details() {
+function Detail() {
   const { state } = useLocation();
   const navigate = useNavigate();
 
@@ -106,4 +106,4 @@ function Details() {
   );
 }
 
-export default Details;
+export default Detail;
