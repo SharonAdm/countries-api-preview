@@ -18,7 +18,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("color-theme") === "dark");
   const toggleDarkMode = () => {
     const isDarkMode = document.documentElement.classList.toggle("dark");
     localStorage.setItem("color-theme", isDarkMode ? "dark" : "light");
